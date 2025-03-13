@@ -37,26 +37,26 @@ def main():
         iter_times.append(iter_time)
         iter_values.append(value)
 
-    with open("resultados_fibonacci.csv", "w", newline="") as csvfile:
+    with open("fibonacci_results.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile, delimiter=";")
-        writer.writerow(["Posicao",
-                         "Valor",
-                         "Tempo_Iterativo(seg)",
-                         "Tempo_Recursivo(seg) (Real até 30, Estimado depois)"])
+        writer.writerow(["Position",
+                         "Value",
+                         "Iterative_Time(sec)",
+                         "Recursive_Time(sec) (Real up to 30, Estimated after)"])
 
         for i in range(max_pos_iter):
             pos = i + 1
-            valor = iter_values[i]
+            value = iter_values[i]
             t_iter = iter_times[i]
 
             t_rec = rec_times[i]
 
-            writer.writerow([pos, valor, f"{t_iter:.6f}", f"{t_rec:.6f}"])
+            writer.writerow([pos, value, f"{t_iter:.6f}", f"{t_rec:.6f}"])
 
-    print("Posicao;Valor;TempoIter;TempoRec(R=real até 30/E=estimado)")
+    print("Position;Value;IterTime;RecTime(R=real up to 30/E=estimated)")
     for i in range(max_pos_iter):
         pos = i + 1
-        valor = iter_values[i]
+        value = iter_values[i]
         t_iter = iter_times[i]
         t_rec = rec_times[i]
 
@@ -65,24 +65,24 @@ def main():
         else:
             tipo = "E"
 
-        print(f"{pos};{valor};{t_iter:.6f};{t_rec:.6f}({tipo})")
+        print(f"{pos};{value};{t_iter:.6f};{t_rec:.6f}({tipo})")
 
     import numpy as np
 
-    posicoes = np.arange(1, max_pos_iter + 1)
+    positions = np.arange(1, max_pos_iter + 1)
 
-    tempos_iter = np.array(iter_times)
-    tempos_rec  = np.array(rec_times)
+    iter_times_np = np.array(iter_times)
+    rec_times_np = np.array(rec_times)
 
-    plt.plot(posicoes, tempos_iter, label="Iterativo (real, 1..100)")
-    plt.plot(posicoes, tempos_rec,  label="Recursivo (1..30 real, 31..100 estimado)")
-    plt.xlabel("Posição na Série de Fibonacci")
-    plt.ylabel("Tempo de Execução (segundos)")
-    plt.title("Comparação de Tempos: Fibonacci Iterativo x Recursivo")
+    plt.plot(positions, iter_times_np, label="Iterative (real, 1..100)")
+    plt.plot(positions, rec_times_np, label="Recursive (1..30 real, 31..100 estimated)")
+    plt.xlabel("Position in the Fibonacci Series")
+    plt.ylabel("Execution Time (seconds)")
+    plt.title("Time Comparison: Iterative vs Recursive Fibonacci")
     plt.legend()
 
-    # Salva em PNG
-    plt.savefig("grafico_fibonacci.png", dpi=300)
+    # Save as PNG
+    plt.savefig("fibonacci_chart.png", dpi=300)
     plt.show()
 
 
