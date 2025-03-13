@@ -1,7 +1,4 @@
 def fib_r(position):
-    """
-    Cálculo recursivo simples de Fibonacci (sem memoização).
-    """
     if position == 1:
         return 0
     elif position == 2:
